@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -25,6 +27,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<User> getAll() {
+        List<User> list = repository.findAll();
+        return list.stream()
+                .filter(user -> user.getRoles().contains(Role.ROLE_USER))
+                .collect(Collectors.toList());
+    }
+
     public User getById(int id) {
         return repository.findById(id).orElse(new User());
     }
@@ -33,12 +42,24 @@ public class UserService implements UserDetailsService {
         return repository.findByEmail(email).orElse(null);
     }
 
-    public void save(User user) {
+    //TODO change this method return type to void, if user exist, throw exception
+    public boolean create(User user) {
         if (user.getId() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.addRole(Role.ROLE_USER);
+            repository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    //TODO change this method return type to void, if user not exist, throw exception
+    public boolean update(User user) {
+        if (user.getId() == null) {
+            return false;
         }
         repository.save(user);
+        return true;
     }
 
     @Override
