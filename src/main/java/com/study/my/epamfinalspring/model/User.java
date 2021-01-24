@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name = "seo", initialValue = 1000)
-    private int id;
+    private Integer id;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -60,7 +60,7 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
