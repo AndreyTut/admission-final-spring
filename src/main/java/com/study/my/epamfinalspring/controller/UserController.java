@@ -2,12 +2,14 @@ package com.study.my.epamfinalspring.controller;
 
 import com.study.my.epamfinalspring.model.User;
 import com.study.my.epamfinalspring.service.UserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -22,6 +24,6 @@ public class UserController {
         String email = principal.getName();
         User student = userService.getByEmail(email);
         model.addAttribute("student", student);
-        return "editStudent";
+        return "editstudent";
     }
 }

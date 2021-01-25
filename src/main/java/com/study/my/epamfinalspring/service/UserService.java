@@ -63,10 +63,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = getByEmail(s);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = getByEmail(email);
         if (user == null) {
-            return null;
+            throw new RuntimeException("user not found: " + email);
         }
         return new UserDetails() {
             @Override
