@@ -25,24 +25,26 @@
                         <p th:text="#{validation.entercorrect}">Enter correct data, please</p>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Email:</label>
-                        <input type="text" class="form-control" name="email" id="email"/>
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('email')}?'form-group has-error':'form-group'">
+                        <label class="col-sm-2 control-label" th:text="#{inputform.email}">Email:</label>
+                        <input type="text" class="form-control" name="email" id="email" th:value="${user.email}"/>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Password:</label>
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('password')}?'form-group has-error':'form-group'">
+                        <label class="col-sm-2 control-label" th:text="#{inputform.password}">Password:</label>
                         <input type="password" class="form-control" name="password" id="password"/>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">City:</label>
-                            <input type="text" class="form-control" name="city" id="city"/>
+                    <div class="form-group" th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
+                        <label class="col-sm-2 control-label" th:text="#{inputform.city}">City:</label>
+                        <input type="text" class="form-control" name="city" id="city"/>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Diploma mark:</label>
-                            <input type="text" class="form-control" name="diplomAvarageMark" id="diplomAvarageMark"/>
+                        <label class="col-sm-2 control-label" th:text="#{inputform.diplomamark}">Diploma mark:</label>
+                        <input type="text" class="form-control" name="diplomAvarageMark" id="diplomAvarageMark"/>
                     </div>
 
                     <button type="submit" class="btn btn-default">Submit</button>
