@@ -1,8 +1,5 @@
 DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS user_db;
-DROP SEQUENCE IF EXISTS global_seq;
-
--- CREATE SEQUENCE global_seq START WITH 100000;
 
 CREATE TABLE user_db
 (

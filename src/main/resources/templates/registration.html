@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
 
     <title>Title</title>
@@ -16,34 +17,32 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5 col-md-offset-4">
-            <h2>Registration</h2>
+            <h2 th:text="#{header.registration}">Registration</h2>
             <div>
-                <form class="form-horizontal" th:action="@{/registration}" method="post">
+                <form class="form-horizontal" th:action="@{/registration}" method="post" th:object="${user}">
+
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                        <p th:text="#{validation.entercorrect}">Enter correct data, please</p>
+                    </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Username:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="email" id="email"/>
-                        </div>
+                        <label class="col-sm-2 control-label">Email:</label>
+                        <input type="text" class="form-control" name="email" id="email"/>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Password:</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" id="password"/>
-                        </div>
+                        <input type="password" class="form-control" name="password" id="password"/>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">City:</label>
-                        <input type="text" class="form-control" name="city" id="city"/>
+                            <input type="text" class="form-control" name="city" id="city"/>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Passwordiplom mark:</label>
-                        <input type="text" class="form-control" name="diplomAvarageMark" id="diplomAvarageMark"/>
-                    </div>
-
+                        <label class="col-sm-2 control-label">Diploma mark:</label>
+                            <input type="text" class="form-control" name="diplomAvarageMark" id="diplomAvarageMark"/>
                     </div>
 
                     <button type="submit" class="btn btn-default">Submit</button>
