@@ -8,15 +8,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+//TODO when adding custom exception handler, try to make login form to remember username when unsuccesfull login
+// try to use this solution https://stackoverflow.com/questions/31660208/keep-username-in-form-input-field-after-unsuccessful-login-attempt-java-spring/47173940
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserService userService;
+    private UserDetailsService userService;
 
-    public WebSecurityConfig(UserService userService) {
+    public WebSecurityConfig(UserDetailsService userService) {
         this.userService = userService;
     }
 

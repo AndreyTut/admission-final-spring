@@ -1,5 +1,6 @@
 package com.study.my.epamfinalspring.service;
 
+import com.study.my.epamfinalspring.dto.UserTo;
 import com.study.my.epamfinalspring.model.Role;
 import com.study.my.epamfinalspring.model.User;
 import com.study.my.epamfinalspring.repository.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.study.my.epamfinalspring.util.UserUtil.userFromTo;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -60,6 +63,11 @@ public class UserService implements UserDetailsService {
         }
         repository.save(user);
         return true;
+    }
+
+    public boolean createFromTo(UserTo userTo) {
+        User user = userFromTo(userTo);
+        return create(user);
     }
 
     @Override

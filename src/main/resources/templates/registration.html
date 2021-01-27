@@ -30,24 +30,47 @@
 
                     <div class="form-group"
                          th:class="${#fields.hasErrors('email')}?'form-group has-error':'form-group'">
-                        <label class="col-sm-2 control-label" th:text="#{inputform.email}">Email:</label>
+                        <label class="control-label" th:text="#{inputform.email}">Email:</label>
                         <input type="text" class="form-control" name="email" id="email" th:value="${user.email}"/>
                     </div>
 
                     <div class="form-group"
                          th:class="${#fields.hasErrors('password')}?'form-group has-error':'form-group'">
-                        <label class="col-sm-2 control-label" th:text="#{inputform.password}">Password:</label>
+                        <label class="control-label" th:text="#{inputform.password}">Password:</label>
                         <input type="password" class="form-control" name="password" id="password"/>
                     </div>
 
-                    <div class="form-group" th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
-                        <label class="col-sm-2 control-label" th:text="#{inputform.city}">City:</label>
-                        <input type="text" class="form-control" name="city" id="city"/>
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('firstName')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.firstname}">First name:</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName"
+                               th:value="${user.firstName}"/>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" th:text="#{inputform.diplomamark}">Diploma mark:</label>
-                        <input type="text" class="form-control" name="diplomAvarageMark" id="diplomAvarageMark"/>
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('patronymic')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.patronymic}">Patronymic:</label>
+                        <input type="text" class="form-control" name="patronymic" id="patronymic"
+                               th:value="${user.patronymic}"/>
+                    </div>
+
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('lastName')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.lastname}">Last name:</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName"
+                               th:value="${user.lastName}"/>
+                    </div>
+
+
+                    <div class="form-group" th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.city}">City:</label>
+                        <input type="text" class="form-control" name="city" id="city" th:value="${user.city}"/>
+                    </div>
+
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('region')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.region}">Region:</label>
+                        <input type="text" class="form-control" name="region" id="region" th:value="${user.region}"/>
                     </div>
 
                     <button type="submit" class="btn btn-default">Submit</button>
