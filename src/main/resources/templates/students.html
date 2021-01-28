@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+              th:href="@{../css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+        <script src="../static/js/jquery-2.1.4.min.js"
+                th:src="@{../js/jquery-2.1.4.min.js}"></script>
+
+        <link th:href="@{../css/custom.css}" rel="stylesheet" media="screen"/>
+    </head>
 <body>
-<ul>
-    <li th:each="student: ${students}" th:text="${student.email}">Student</li>
-</ul>
+<div class="container" th:replace="fragments/header :: header">
+    <p>header</p>
+</div>
+<div style="margin: 20px">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>email</th>
+            <th>City</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.getFullName()}">data</td>
+            <td th:text="${student.email}">data</td>
+            <td th:text="${student.city}">data</td>
+            <td><a th:href="@{/view/${student.id}}">
+                View </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a href="/">To main page</a>
+</div>
+
 </body>
 </html>

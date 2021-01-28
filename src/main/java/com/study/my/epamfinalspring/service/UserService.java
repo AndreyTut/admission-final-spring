@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +38,9 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    public User getById(int id) {
-        return repository.findById(id).orElse(new User());
-    }
+ //   public User getById(int id) {
+//        return repository.findById(id).orElse(new User());
+//    }
 
     public User getByEmail(String email) {
         return repository.findByEmail(email).orElse(null);
@@ -49,7 +50,7 @@ public class UserService implements UserDetailsService {
     public boolean create(User user) {
         if (user.getId() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.addRole(Role.ROLE_USER);
+            user.setRoles(Collections.singleton(Role.ROLE_USER));
             repository.save(user);
             return true;
         }
