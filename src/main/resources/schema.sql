@@ -3,17 +3,17 @@ DROP TABLE IF EXISTS user_db;
 
 CREATE TABLE user_db
 (
-  id                  SERIAL PRIMARY KEY,
-  email               VARCHAR           NOT NULL,
-  password            VARCHAR           NOT NULL,
-  first_name          VARCHAR,
-  last_name           VARCHAR,
-  patronymic          VARCHAR,
-  city                VARCHAR,
-  region              VARCHAR,
-  diplom_avarage_mark INTEGER,
-  diplom_image        BYTEA,
-  enabled             BOOL DEFAULT TRUE NOT NULL
+  id           SERIAL PRIMARY KEY,
+  email        VARCHAR           NOT NULL,
+  password     VARCHAR           NOT NULL,
+  first_name   VARCHAR,
+  last_name    VARCHAR,
+  patronymic   VARCHAR,
+  city         VARCHAR,
+  region       VARCHAR,
+  school_name  VARCHAR,
+  diplom_image BYTEA,
+  enabled      BOOL DEFAULT TRUE NOT NULL
 
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON user_db (email);

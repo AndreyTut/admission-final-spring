@@ -21,6 +21,11 @@ public class User {
     @Size(max = 20)
     private String email;
 
+    @Column(name = "password", nullable = false)
+    @NotBlank
+    @Size(max = 100)
+    private String password;
+
     private String firstName;
 
     private String lastName;
@@ -31,18 +36,8 @@ public class User {
 
     private String region;
 
-//    private Map<String, Integer> marks = new HashMap<>();
+    private String schoolName;
 
-    @Min(1)
-    @Max(12)
-    private Integer diplomAvarageMark;
-
-    private Byte[] diplomImage;
-
-    @Column(name = "password", nullable = false)
-    @NotBlank
-    @Size(max = 100)
-    private String password;
 
     @Column(name = "enabled")
     private boolean isEnabled = true;
@@ -116,36 +111,20 @@ public class User {
         this.region = region;
     }
 
-//    public Map<String, Integer> getMarks() {
-//        return marks;
-//    }
-//
-//    public void setMarks(Map<String, Integer> marks) {
-//        this.marks = marks;
-//    }
-
-    public int getDiplomAvarageMark() {
-        return diplomAvarageMark;
-    }
-
-    public void setDiplomAvarageMark(int diplomAvarageMark) {
-        this.diplomAvarageMark = diplomAvarageMark;
-    }
-
-    public Byte[] getDiplomImage() {
-        return diplomImage;
-    }
-
-    public void setDiplomImage(Byte[] diplomImage) {
-        this.diplomImage = diplomImage;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 
     public boolean isEnabled() {
@@ -179,9 +158,7 @@ public class User {
                 ", patronymic='" + patronymic + '\'' +
                 ", city='" + city + '\'' +
                 ", region='" + region + '\'' +
-                ", diplomAvarageMark=" + diplomAvarageMark +
-                ", diplomImage=" + Arrays.toString(diplomImage) +
-                ", password='" + password + '\'' +
+                ", school='" + schoolName + '\'' +
                 ", isEnabled=" + isEnabled +
                 ", roles=" + roles +
                 '}';

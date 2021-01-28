@@ -17,6 +17,7 @@ public class UserUtil {
         user.setPatronymic(userTo.getPatronymic());
         user.setRegion(userTo.getRegion());
         user.setCity(userTo.getCity());
+        user.setSchoolName(userTo.getSchoolName());
         return user;
     }
 }

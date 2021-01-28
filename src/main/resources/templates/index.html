@@ -12,13 +12,9 @@
     <link th:href="@{css/custom.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" href="#" th:href="@{/login}" th:text="#{header.login}">Navbar</a>
-    <a class="navbar-brand" href="#" th:href="@{/registration}" th:text="#{header.registration}">Navbar</a>
-    <a class="navbar-brand" href="?lang=en">English</a>
-    <a class="navbar-brand" href="?lang=ua">Українська</a>
-    <a class="navbar-brand" href="#" th:href="@{/logout}" th:text="#{header.logout}">Navbar</a>
-</nav>
+<div th:replace="fragments/header::header">
+    <p>Navbar</p>
+</div>
 <h2 th:utext="#{index.page.hello}">Hello page</h2>
 <p><a href="#" th:href="@{/admin/students}">Admin's zone</a></p>
 <p><a href="#" th:href="@{/user/edit}">User's zone</a></p>

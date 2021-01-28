@@ -32,12 +32,24 @@
                          th:class="${#fields.hasErrors('email')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.email}">Email:</label>
                         <input type="text" class="form-control" name="email" id="email" th:value="${user.email}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('email')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
                     <div class="form-group"
                          th:class="${#fields.hasErrors('password')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.password}">Password:</label>
                         <input type="password" class="form-control" name="password" id="password"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('password')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('password')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
                     <div class="form-group"
@@ -45,6 +57,12 @@
                         <label class="control-label" th:text="#{inputform.firstname}">First name:</label>
                         <input type="text" class="form-control" name="firstName" id="firstName"
                                th:value="${user.firstName}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
                     <div class="form-group"
@@ -52,6 +70,12 @@
                         <label class="control-label" th:text="#{inputform.patronymic}">Patronymic:</label>
                         <input type="text" class="form-control" name="patronymic" id="patronymic"
                                th:value="${user.patronymic}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('patronymic')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('patronymic')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
                     <div class="form-group"
@@ -59,20 +83,50 @@
                         <label class="control-label" th:text="#{inputform.lastname}">Last name:</label>
                         <input type="text" class="form-control" name="lastName" id="lastName"
                                th:value="${user.lastName}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
 
                     <div class="form-group" th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.city}">City:</label>
                         <input type="text" class="form-control" name="city" id="city" th:value="${user.city}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('city')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('city')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
                     </div>
 
                     <div class="form-group"
                          th:class="${#fields.hasErrors('region')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.region}">Region:</label>
                         <input type="text" class="form-control" name="region" id="region" th:value="${user.region}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('region')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('region')}" th:text="${err}"/>
+                       </ul>
+                </span>
+
+
                     </div>
 
+
+                    <div class="form-group"
+                         th:class="${#fields.hasErrors('schoolName')}?'form-group has-error':'form-group'">
+                        <label class="control-label" th:text="#{inputform.schoolname}">Region:</label>
+                        <input type="text" class="form-control" name="schoolName" id="schoolName" th:value="${user.schoolName}"/>
+                        <span class="help-block" th:if="${#fields.hasErrors('region')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('schoolName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                    </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
             </div>

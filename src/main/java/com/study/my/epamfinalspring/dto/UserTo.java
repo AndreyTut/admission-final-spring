@@ -30,6 +30,8 @@ public class UserTo {
     private String city;
     @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|([A-Z][a-z']+)")
     private String region;
+    @NotBlank
+    private String schoolName;
 
     public Integer getId() {
         return id;
@@ -93,5 +95,13 @@ public class UserTo {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 }
