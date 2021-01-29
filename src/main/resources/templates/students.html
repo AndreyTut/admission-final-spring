@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
-              th:href="@{../css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+              th:href="@{../../css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
 
         <script src="../static/js/jquery-2.1.4.min.js"
-                th:src="@{../js/jquery-2.1.4.min.js}"></script>
+                th:src="@{../../js/jquery-2.1.4.min.js}"></script>
 
-        <link th:href="@{../css/custom.css}" rel="stylesheet" media="screen"/>
+        <link th:href="@{../../css/custom.css}" rel="stylesheet" media="screen"/>
     </head>
 <body>
 <div class="container" th:replace="fragments/header :: header">
@@ -20,24 +20,46 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>email</th>
-            <th>City</th>
-            <th>View</th>
+            <th th:text="#{table.header.name}">Name</th>
+            <th th:text="#{table.header.email}">email</th>
+            <th th:text="#{table.header.cityregion}">City</th>
+            <th th:text="#{table.header.view}">View</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="student : ${students}">
             <td th:text="${student.getFullName()}">data</td>
             <td th:text="${student.email}">data</td>
-            <td th:text="${student.city}">data</td>
-            <td><a th:href="@{/view/${student.id}}">
+            <td th:text="${student.city+', '+student.region+' '}+#{table.cell.reg}">data</td>
+            <td><a th:href="@{'view/'+${student.email}}" th:text="#{table.header.view}">
                 View </a></td>
         </tr>
         </tbody>
     </table>
+    <br>
+    <span th:text="#{students.total}+' '+${usersscount}">Total</span>
+    <div class="col-md-5 col-md-offset-4">
+        <a th:if="${pagenum > 1}" th:href="@{1}" th:text="#{students.first}">First</a>
+        <span th:unless="${pagenum > 1}" th:text="#{students.first}">First</span>
+
+        <a th:if="${pagenum > 1}" th:href="@{${pagenum - 1}}" th:text="#{students.prev}">Previous</a>
+        <span th:unless="${pagenum > 1}" th:text="#{students.prev}">Previous</span>
+        &nbsp;
+        <span th:each="i: ${#numbers.sequence(1, pagescount)}">
+    <a th:if="${pagenum != i}" th:href="@{${i}}">[[${i}]]</a>
+    <span th:unless="${pagenum != i}">[[${i}]]</span>
+    &nbsp;
+</span>
+
+        <a th:if="${pagenum < pagescount}" th:href="@{${pagenum} + 1}" th:text="#{students.next}">Next</a>
+        <span th:unless="${pagenum < pagescount}" th:text="#{students.next}">Next</span>
+
+        <a th:if="${pagenum < pagescount}" th:href="@{${pagescount}}" th:text="#{students.last}">Last</a>
+        <span th:unless="${pagenum < pagescount}" th:text="#{students.last}">Last</span>
+    </div>
     <br/>
-    <a href="/">To main page</a>
+    <br>
+    <a href="/" th:text="#{links.tomain}">To main page</a>
 </div>
 
 </body>

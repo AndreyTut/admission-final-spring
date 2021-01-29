@@ -5,6 +5,10 @@ import com.study.my.epamfinalspring.model.Role;
 import com.study.my.epamfinalspring.model.User;
 import com.study.my.epamfinalspring.repository.UserRepository;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,15 +42,16 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
- //   public User getById(int id) {
-//        return repository.findById(id).orElse(new User());
-//    }
+    public Page<User> getAll(int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum - 1, 10, Sort.by("lastName"));
+        return repository.findByRoles(Role.ROLE_USER, pageable);
+    }
 
     public User getByEmail(String email) {
         return repository.findByEmail(email).orElse(null);
     }
 
-    //TODO change this method return type to void, if user exist, throw exception
+    //TODO change this method return type to void, if user exists, throw exception
     public boolean create(User user) {
         if (user.getId() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
