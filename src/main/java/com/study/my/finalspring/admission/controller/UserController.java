@@ -1,7 +1,7 @@
-package com.study.my.epamfinalspring.controller;
+package com.study.my.finalspring.admission.controller;
 
-import com.study.my.epamfinalspring.model.User;
-import com.study.my.epamfinalspring.service.UserService;
+import com.study.my.finalspring.admission.model.User;
+import com.study.my.finalspring.admission.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

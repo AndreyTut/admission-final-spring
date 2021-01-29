@@ -1,7 +1,7 @@
-package com.study.my.epamfinalspring.controller;
+package com.study.my.finalspring.admission.controller;
 
-import com.study.my.epamfinalspring.dto.UserTo;
-import com.study.my.epamfinalspring.service.UserService;
+import com.study.my.finalspring.admission.dto.UserTo;
+import com.study.my.finalspring.admission.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
