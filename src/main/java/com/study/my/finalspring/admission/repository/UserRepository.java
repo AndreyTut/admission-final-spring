@@ -1,7 +1,7 @@
-package com.study.my.epamfinalspring.repository;
+package com.study.my.finalspring.admission.repository;
 
-import com.study.my.epamfinalspring.model.Role;
-import com.study.my.epamfinalspring.model.User;
+import com.study.my.finalspring.admission.model.Role;
+import com.study.my.finalspring.admission.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

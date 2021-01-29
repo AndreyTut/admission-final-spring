@@ -1,10 +1,10 @@
-package com.study.my.epamfinalspring;
+package com.study.my.finalspring.admission;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EpamFinalSpringApplicationTests {
+class AdmissionFinalSpringApplicationTests {
 
     @Test
     void contextLoads() {

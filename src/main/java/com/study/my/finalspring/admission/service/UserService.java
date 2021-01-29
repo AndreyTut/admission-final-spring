@@ -1,9 +1,10 @@
-package com.study.my.epamfinalspring.service;
+package com.study.my.finalspring.admission.service;
 
-import com.study.my.epamfinalspring.dto.UserTo;
-import com.study.my.epamfinalspring.model.Role;
-import com.study.my.epamfinalspring.model.User;
-import com.study.my.epamfinalspring.repository.UserRepository;
+import com.study.my.finalspring.admission.dto.UserTo;
+import com.study.my.finalspring.admission.model.Role;
+import com.study.my.finalspring.admission.model.User;
+import com.study.my.finalspring.admission.repository.UserRepository;
+import com.study.my.finalspring.admission.util.UserUtil;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.study.my.epamfinalspring.util.UserUtil.userFromTo;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -72,7 +71,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean createFromTo(UserTo userTo) {
-        User user = userFromTo(userTo);
+        User user = UserUtil.userFromTo(userTo);
         return create(user);
     }
 

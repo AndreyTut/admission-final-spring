@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.study.my</groupId>
-    <artifactId>epam-final-spring</artifactId>
+    <artifactId>admission-final-spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>epam-final-spring</name>
+    <name>admission-final-spring</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>

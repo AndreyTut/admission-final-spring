@@ -1,4 +1,4 @@
-package com.study.my.epamfinalspring.dto;
+package com.study.my.finalspring.admission.dto;
 
 import lombok.Data;
 

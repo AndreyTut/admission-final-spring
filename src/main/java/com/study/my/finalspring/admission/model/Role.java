@@ -1,4 +1,4 @@
-package com.study.my.epamfinalspring.model;
+package com.study.my.finalspring.admission.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

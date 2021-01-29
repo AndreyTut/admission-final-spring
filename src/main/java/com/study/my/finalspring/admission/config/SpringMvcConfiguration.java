@@ -1,4 +1,4 @@
-package com.study.my.epamfinalspring.config;
+package com.study.my.finalspring.admission.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

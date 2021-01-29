@@ -1,7 +1,7 @@
-package com.study.my.epamfinalspring.util;
+package com.study.my.finalspring.admission.util;
 
-import com.study.my.epamfinalspring.dto.UserTo;
-import com.study.my.epamfinalspring.model.User;
+import com.study.my.finalspring.admission.dto.UserTo;
+import com.study.my.finalspring.admission.model.User;
 
 public class UserUtil {
 
