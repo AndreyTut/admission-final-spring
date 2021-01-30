@@ -9,16 +9,16 @@ public class UserUtil {
     }
 
     public static User userFromTo(UserTo userTo) {
-        User user = new User(userTo.getEmail());
-        user.setEmail(userTo.getEmail());
-        user.setId(userTo.getId());
-        user.setPassword(userTo.getPassword());
-        user.setFirstName(userTo.getFirstName());
-        user.setLastName(userTo.getLastName());
-        user.setPatronymic(userTo.getPatronymic());
-        user.setRegion(userTo.getRegion());
-        user.setCity(userTo.getCity());
-        user.setSchoolName(userTo.getSchoolName());
-        return user;
+        return User.builder()
+                .email(userTo.getEmail())
+                .password(userTo.getPassword())
+                .id(userTo.getId())
+                .firstName(userTo.getFirstName())
+                .lastName(userTo.getLastName())
+                .patronymic(userTo.getPatronymic())
+                .region(userTo.getRegion())
+                .city(userTo.getCity())
+                .schoolName(userTo.getSchoolName())
+                .build();
     }
 }

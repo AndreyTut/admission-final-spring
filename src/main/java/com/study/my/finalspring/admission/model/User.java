@@ -47,6 +47,7 @@ public class User {
 
 
     @Column(name = "enabled")
+    @Builder.Default
     private boolean isEnabled = true;
 
     @Enumerated(EnumType.STRING)

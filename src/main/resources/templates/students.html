@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <title>Title</title>
         <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
-              th:href="@{../../css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+              th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
 
         <script src="../static/js/jquery-2.1.4.min.js"
-                th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+                th:src="@{/js/jquery-2.1.4.min.js}"></script>
 
-        <link th:href="@{../../css/custom.css}" rel="stylesheet" media="screen"/>
+        <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
     </head>
 <body>
 <div class="container" th:replace="fragments/header :: header">
@@ -31,7 +31,7 @@
             <td th:text="${student.getFullName()}">data</td>
             <td th:text="${student.email}">data</td>
             <td th:text="${student.city+', '+student.region+' '}+#{table.cell.reg}">data</td>
-            <td><a th:href="@{'view/'+${student.email}}" th:text="#{table.header.view}">
+            <td><a th:href="@{'/admin/students/view/'+${student.email}}" th:text="#{table.header.view}">
                 View </a></td>
         </tr>
         </tbody>

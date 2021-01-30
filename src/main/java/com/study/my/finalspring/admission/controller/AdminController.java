@@ -21,7 +21,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/students/{pagenum}")
+    @GetMapping("/students/p/{pagenum}")
     public String getAllStudents(Model model, @PathVariable(name = "pagenum") int pageNum) {
         Page<User> userPage = userService.getAll(pageNum);
         List<User> students = userPage.getContent();
