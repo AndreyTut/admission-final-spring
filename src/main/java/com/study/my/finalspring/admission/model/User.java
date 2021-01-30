@@ -11,14 +11,15 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-@Table(name = "user_db", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@Table(name = "user_db")
+//, uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @SequenceGenerator(name = "seo", initialValue = 1000)
+//    @SequenceGenerator(name = "seo", initialValue = 1000)
     private Integer id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -45,10 +46,14 @@ public class User {
 
     private String schoolName;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Diploma diploma;
 
     @Column(name = "enabled")
     @Builder.Default
     private boolean isEnabled = true;
+
+    private byte[] diplomImage;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
