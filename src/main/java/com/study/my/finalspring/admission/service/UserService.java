@@ -16,10 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,6 +75,23 @@ public class UserService implements UserDetailsService {
     public boolean createFromTo(UserTo userTo) {
         User user = UserUtil.userFromTo(userTo);
         return create(user);
+    }
+
+    //TODO write own exception classes and use them instead of runtime exceptions
+    @Transactional
+    public boolean update(UserTo userTo) {
+        User old = repository.findById(userTo.getId()).orElseThrow(RuntimeException::new);
+        return repository.save(UserUtil.prepareToUpdate(userTo, old)) != null;
+    }
+
+
+    //TODO write own exception classes and use them instead of runtime exceptions
+    @Transactional
+    public User setEnabled(int id, boolean enabled) {
+        User user = repository.findById(id).orElseThrow(RuntimeException::new);
+        user.setEnabled(enabled);
+        repository.save(user);
+        return user;
     }
 
     @Override

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -12,7 +13,6 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "user_db")
-//, uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -34,16 +34,26 @@ public class User {
     @Size(max = 100)
     private String password;
 
+//    @NotBlank
+    @Size(min = 2, max = 20)
+    @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String firstName;
 
+//    @NotBlank
+    @Size(min = 2, max = 20)
+    @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String lastName;
 
+    @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String patronymic;
 
+    @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String city;
 
+    @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String region;
 
+    //@NotBlank
     private String schoolName;
 
     @OneToOne(cascade = CascadeType.ALL)

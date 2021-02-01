@@ -3,13 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<ul>
-    <li> student</li>
-    <li th:text="${student}"> student</li>
-</ul>
+<div class="container" th:replace="fragments/header :: header">
+    <p>header</p>
+</div>
 
-</p>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-sm-1 col-md-offset-10">
+            <form action="/admin/student/id/" th:action="@{'/admin/student/'+${student.id}+'/changeactive'}" method="post">
+                <button type="submit" class="btn btn-info"
+                        th:text="${student.isEnabled()}?#{student.block}
+                :#{student.deblock}">
+                    Block button
+                </button>
+                <input type="hidden" name="enabled" th:value="${!student.isEnabled()}">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-offset-3">
+            <table class="table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <h3 th:text="#{student.view.title}">Student details</h3>
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="#{student.view.name}">Name</td>
+                    <td th:text="${student.lastName}+' '+${student.firstName}+' '+${student.patronymic}">Ivan Ivanovicn
+                        Ivanov
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.view.from}">Name</td>
+                    <td th:text="${student.city+', '+student.region+' '}+#{table.cell.reg}">Brovary, Kiev, reg.
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.view.school}">Name</td>
+                    <td th:text="${student.schoolName}">Brovary, Kiev, reg.
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.view.email}">Email</td>
+                    <td th:text="${student.email}">Email</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" th:if="${student.getDiploma()!=null}">
+        <div class="col-sm-6 col-lg-offset-3">
+            <table class="table-striped">
+                <thead>
+                <th>
+                    <h4 th:text="#{student.view.diploma}">Student diploma</h4>
+                </th>
+                <th>
+                </th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="#{student.diploma.math}">Subject</td>
+                    <td th:text="${student.diploma.math}">Mark</td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.diploma.physics}">Subject</td>
+                    <td th:text="${student.diploma.physics}">Mark</td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.diploma.biology}">Subject</td>
+                    <td th:text="${student.diploma.biology}">Mark</td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.diploma.history}">Subject</td>
+                    <td th:text="${student.diploma.history}">Mark</td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.diploma.chemistry}">Subject</td>
+                    <td th:text="${student.diploma.chemistry}">Mark</td>
+                </tr>
+                <tr>
+                    <td th:text="#{student.diploma.literature}">Subject</td>
+                    <td th:text="${student.diploma.literature}">Mark</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <span th:unless="${student.getDiploma()!=null}" th:text="#{student.diploma.isnull}">No diploma</span>
+    <div class="row">
+        <div class="col-sm-8 col-lg-offset-2">
+            <h4 th:text="#{student.diploma.scan}">Diploma scan:</h4>
+            <img src="" th:src="@{'/students/'+${student.id}+'/diplomaimage'}"
+                 width="100" height="100" alt="Student didn't load diploma scan"/>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

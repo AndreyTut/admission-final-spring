@@ -3,13 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<ul>
-    <li> student</li>
-    <li th:text="${student}"> student</li>
-</ul>
+<div class="container" th:replace="fragments/header :: header">
+    <p>header</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <form method="post" th:action="@{/user/update}" th:object="${student}">
+                <input type="hidden" th:value="${student.id}" name="id">
+                <input type="hidden" th:value="${student.password}" name="password">
+                <input type="hidden" th:value="${student.email}" name="email">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p th:text="#{validation.entercorrect}">Enter correct data, please</p>
+                </div>
 
-</p>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <h3>
+                            <em>
+                                <span th:text="#{student.personalinfo}">Personal information</span>
+                            </em>
+                        </h3>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <div class="row info">
+                    <div class="col-md-3 col-md-offset-1">
+
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('lastName')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{inputform.lastname}"></label>
+                            <input type="text" name="lastName" id="lastname" th:value="${student.lastName}"
+                                   class="form-control"
+                                   placeholder="Last name">
+                            <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('firstName')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{inputform.firstname}"></label>
+                            <input name="firstName" th:value="${student.firstName}" id="firstname" type="text"
+                                   class="form-control" placeholder="First name">
+                            <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('patronymic')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{inputform.patronymic}"></label>
+                            <input name="patronymic" th:value="${student.patronymic}" id="patronymic" type="text"
+                                   class="form-control" placeholder="First name">
+                            <span class="help-block" th:if="${#fields.hasErrors('patronymic')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('patronymic')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="row info">
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
+
+                            <label class="control-label" th:text="#{inputform.city}"></label>
+                            <input name="city" th:value="${student.city}" id="city" type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('city')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('city')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('region')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{inputform.region}"></label>
+                            <input name="region" th:value="${student.region}" id="region" type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('region')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('region')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('schoolName')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.view.school}"></label>
+                            <input name="schoolName" th:value="${student.schoolName}" id="schoolName" type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('schoolName')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('schoolName')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br>
+                <div class="row info">
+
+                    <div class="col-md-4 col-md-offset-1">
+                        <button type="submit" class="btn btn-info" th:text="#{student.save.changes}">Button</button>
+                    </div>
+
+                </div>
+            </form>
+            <hr>
+
+            <form action="/user/diploma" th:action="@{/user/diploma/update}" method="post" th:object="${diploma}">
+                <input name="id" type="hidden" th:value="${diploma==null}?null:${diploma.id}">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <h3>
+                            <em>
+                                <span th:text="#{student.diploma}">Student's diploma</span>
+                            </em>
+                        </h3>
+                    </div>
+                </div>
+                <br>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('math')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.math}">Math</label>
+                            <input name="math" th:value="${diploma!=null}?${diploma.math}:''" id="math" type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('math')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('math')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('physics')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.physics}">physics</label>
+                            <input name="physics" th:value="${diploma!=null}?${diploma.physics}:''" id="physics"
+                                   type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('physics')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('physics')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('history')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.history}">history</label>
+                            <input name="history" th:value="${diploma!=null}?${diploma.history}:''" id="history"
+                                   type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('history')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('history')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('literature')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.literature}">literature</label>
+                            <input name="literature" th:value="${diploma!=null}?${diploma.literature}:''"
+                                   id="literature" type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('literature')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('literature')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('chemistry')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.chemistry}">physics</label>
+                            <input name="chemistry" th:value="${diploma!=null}?${diploma.chemistry}:''" id="chemistry"
+                                   type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('chemistry')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('chemistry')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-md-offset-1">
+                        <div class="form-group"
+                             th:class="${#fields.hasErrors('biology')}?'form-group has-error':'form-group'">
+                            <label class="control-label" th:text="#{student.diploma.biology}">history</label>
+                            <input name="biology" th:value="${diploma!=null}?${diploma.biology}:''" id="biology"
+                                   type="text"
+                                   class="form-control">
+                            <span class="help-block" th:if="${#fields.hasErrors('biology')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('biology')}" th:text="${err}"/>
+                       </ul>
+                </span>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <div class="row info">
+
+                    <div class="col-md-4 col-md-offset-1">
+                        <button type="submit" class="btn btn-info" th:text="#{student.save.changes}">Button</button>
+                    </div>
+
+                </div>
+
+
+            </form>
+            <hr>
+        </div>
+    </div>
+</div>
 </body>
 </html>

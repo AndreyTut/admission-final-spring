@@ -2,17 +2,17 @@ package com.study.my.finalspring.admission.controller;
 
 import com.study.my.finalspring.admission.model.User;
 import com.study.my.finalspring.admission.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
     private UserService userService;
@@ -35,6 +35,14 @@ public class AdminController {
     @GetMapping("/students/view/{email}")
     public String showStudent(@PathVariable String email, Model model) {
         model.addAttribute("student", userService.getByEmail(email));
+        log.info("Admin controller, view student: " + email);
         return "viewstudent";
+    }
+
+    @PostMapping("/student/{id}/changeactive")
+    public String blockStudent(@PathVariable int id, @RequestParam boolean enabled, Model model) {
+        User user = userService.setEnabled(id, enabled);
+        //       model.addAttribute("student", user);
+        return "redirect:/admin/students/view/" + user.getEmail();
     }
 }

@@ -21,4 +21,11 @@ public class UserUtil {
                 .schoolName(userTo.getSchoolName())
                 .build();
     }
+
+    public static User prepareToUpdate(UserTo userTo, User old) {
+        User user = userFromTo(userTo);
+        user.setRoles(old.getRoles());
+        user.setDiploma(old.getDiploma());
+        return user;
+    }
 }
