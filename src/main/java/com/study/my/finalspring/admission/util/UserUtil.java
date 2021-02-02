@@ -26,6 +26,7 @@ public class UserUtil {
         User user = userFromTo(userTo);
         user.setRoles(old.getRoles());
         user.setDiploma(old.getDiploma());
+        user.setDiplomImage(old.getDiplomImage());
         return user;
     }
 }

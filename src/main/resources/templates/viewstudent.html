@@ -19,7 +19,8 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-sm-1 col-md-offset-10">
-            <form action="/admin/student/id/" th:action="@{'/admin/student/'+${student.id}+'/changeactive'}" method="post">
+            <form action="/admin/student/id/" th:action="@{'/admin/student/'+${student.id}+'/changeactive'}"
+                  method="post">
                 <button type="submit" class="btn btn-info"
                         th:text="${student.isEnabled()}?#{student.block}
                 :#{student.deblock}">
@@ -31,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-sm-6 col-md-offset-3">
-            <table class="table-striped">
+            <table class="table-striped ">
                 <thead>
                 <tr>
                     <th>
@@ -106,11 +107,11 @@
         </div>
     </div>
     <span th:unless="${student.getDiploma()!=null}" th:text="#{student.diploma.isnull}">No diploma</span>
-    <div class="row">
+    <div class="row text-center">
         <div class="col-sm-8 col-lg-offset-2">
             <h4 th:text="#{student.diploma.scan}">Diploma scan:</h4>
-            <img src="" th:src="@{'/students/'+${student.id}+'/diplomaimage'}"
-                 width="100" height="100" alt="Student didn't load diploma scan"/>
+            <img src="" class="img-fluid" th:src="@{'/diplomaimage/'+${student.email}}"
+                 alt="Student didn't load diploma scan"/>
 
         </div>
     </div>

@@ -28,7 +28,6 @@ public class DiplomaController {
     @PostMapping("/user/diploma/update")
     public String save(@Valid @ModelAttribute("diploma") Diploma diploma, BindingResult diplomaBindingResult,
                        @ModelAttribute("student") UserTo userTo,
-                       BindingResult studentBindingResult,
                        Model model, Principal principal) {
         if (diplomaBindingResult.hasErrors()) {
             log.info("binding results have errors");

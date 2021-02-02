@@ -33,20 +33,25 @@ public class UserController {
         User student = userService.getByEmail(email);
         model.addAttribute("student", student);
         model.addAttribute("diploma", student.getDiploma() == null ? new Diploma() : student.getDiploma());
+        log.info("editing user {} with diploma {}", student, student.getDiploma());
         return "editstudent";
     }
 
     @PostMapping("/update")
-    public String edit(@Valid @ModelAttribute("diploma") Diploma diploma, BindingResult diplomaBindingResult,
-                       @Valid @ModelAttribute("student") UserTo userTo,
-                       BindingResult studentBindingResult, Model model) {
-        if (studentBindingResult.hasErrors() || diplomaBindingResult.hasErrors()) {
+    public String update(@Valid @ModelAttribute("student") UserTo userTo,
+                         BindingResult studentBindingResult,
+                         Model model) {
+        Diploma diploma = userService.getByEmail(userTo.getEmail()).getDiploma();
+        diploma = diploma != null ? diploma : new Diploma();
+        if (studentBindingResult.hasErrors()) {
             model.addAttribute("student", userTo);
             model.addAttribute("diploma", diploma);
             return "editstudent";
         }
-        log.info("updating user with id = " + userTo.getId());
+        log.info("updating user with id = {}", userTo.getId());
         userService.update(userTo);
+        model.addAttribute("student", userTo);
+        model.addAttribute("diploma", diploma);
         return "redirect:/user/edit";
     }
 }

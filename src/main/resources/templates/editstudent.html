@@ -26,7 +26,7 @@
                     <p th:text="#{validation.entercorrect}">Enter correct data, please</p>
                 </div>
 
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-md-6 col-md-offset-3">
                         <h3>
                             <em>
@@ -143,7 +143,7 @@
 
             <form action="/user/diploma" th:action="@{/user/diploma/update}" method="post" th:object="${diploma}">
                 <input name="id" type="hidden" th:value="${diploma==null}?null:${diploma.id}">
-                <div class="row">
+                <div class="row text-center">
                     <div class="col-md-6 col-md-offset-3">
                         <h3>
                             <em>
@@ -255,10 +255,24 @@
                     </div>
 
                 </div>
-
-
             </form>
             <hr>
+            <div class="row text-center">
+                <div class="col-md-6 col-md-offset-3">
+                    <h3>
+                        <em>
+                            <span th:text="#{diploma.image}">Diploma photo</span>
+                        </em>
+                    </h3>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="#" th:href="@{'/student/'+${student.email}+'/setimage'}">
+                    <img class="img-fluid" src="../static/images/attestat.jpg"
+                         th:src="@{'/diplomaimage/'+${student.email}}"
+                         alt="No photo"/>
+                </a>
+            </div>
         </div>
     </div>
 </div>

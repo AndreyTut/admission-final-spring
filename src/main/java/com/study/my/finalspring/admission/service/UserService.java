@@ -5,6 +5,7 @@ import com.study.my.finalspring.admission.model.Role;
 import com.study.my.finalspring.admission.model.User;
 import com.study.my.finalspring.admission.repository.UserRepository;
 import com.study.my.finalspring.admission.util.UserUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,13 +18,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserService implements UserDetailsService {
 
@@ -93,6 +94,22 @@ public class UserService implements UserDetailsService {
         repository.save(user);
         return user;
     }
+
+    //TODO write own exception classes and use them instead of runtime exceptions
+    @Transactional
+    public User saveDiplomaImage(MultipartFile image, String email) {
+        byte[] imageBytes;
+        try {
+            imageBytes = image.getBytes();
+        } catch (IOException e) {
+            log.error("Error occurred while converting file into bytes");
+            throw new RuntimeException("Error saving image to database");
+        }
+        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        user.setDiplomImage(imageBytes);
+        return user;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
