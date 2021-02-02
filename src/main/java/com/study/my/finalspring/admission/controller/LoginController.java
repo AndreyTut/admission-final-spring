@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -28,12 +30,14 @@ public class LoginController {
     }
 
     @PostMapping("/registration")
-    public String saveRegistered(@Valid @ModelAttribute("user") UserTo userTo, BindingResult bindingResult, Model model) {
+    public String saveRegistered(@Valid @ModelAttribute("user") UserTo userTo, BindingResult bindingResult,
+                                 @RequestParam MultipartFile file, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", userTo);
             return "registration";
         }
         service.createFromTo(userTo);
+        service.saveDiplomaImage(file, userTo.getEmail());
         return "redirect:/";
     }
 
