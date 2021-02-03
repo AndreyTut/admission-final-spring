@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,7 +20,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @SequenceGenerator(name = "seo", initialValue = 1000)
     private Integer id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -34,12 +34,10 @@ public class User {
     @Size(max = 100)
     private String password;
 
-//    @NotBlank
     @Size(min = 2, max = 20)
     @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String firstName;
 
-//    @NotBlank
     @Size(min = 2, max = 20)
     @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String lastName;
@@ -53,7 +51,7 @@ public class User {
     @Pattern(regexp = "([А-ЯЩІЄ][а-ящіїє']+)|[A-Z][a-z']+")
     private String region;
 
-    //@NotBlank
+    @NotBlank
     private String schoolName;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -62,6 +60,12 @@ public class User {
     @Column(name = "enabled")
     @Builder.Default
     private boolean isEnabled = true;
+
+    @OneToMany(mappedBy = "user")
+    private List<StudentMark> marks;
+    @ManyToMany
+    @JoinTable(name = "student_faculty", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
+    private List<Faculty> faculties;
 
     private byte[] diplomImage;
 

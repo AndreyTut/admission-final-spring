@@ -1,8 +1,15 @@
-ALTER TABLE if exists user_db
-  DROP CONSTRAINT IF EXISTS diploma_fk;
-DROP TABLE IF EXISTS diploma;
-DROP TABLE IF EXISTS user_role;
-DROP TABLE IF EXISTS user_db;
+--ALTER TABLE if exists user_db
+--  DROP CONSTRAINT IF EXISTS diploma_fk;
+
+
+DROP TABLE IF EXISTS diploma CASCADE;
+DROP TABLE IF EXISTS user_role CASCADE;
+DROP TABLE IF EXISTS user_db CASCADE;
+DROP TABLE IF EXISTS subject CASCADE;
+DROP TABLE IF EXISTS faculty CASCADE;
+DROP TABLE IF EXISTS faculty_subject CASCADE;
+DROP TABLE IF EXISTS student_mark CASCADE;
+DROP TABLE IF EXISTS student_faculty CASCADE;
 
 
 
@@ -48,3 +55,46 @@ ALTER TABLE user_db
   ADD CONSTRAINT diploma_fk
     FOREIGN KEY (diploma_id)
       REFERENCES diploma (id);
+
+CREATE TABLE subject
+(
+  id      SERIAL PRIMARY KEY,
+  name_en VARCHAR,
+  name_ua VARCHAR,
+  CONSTRAINT name_idx UNIQUE (name_en, name_ua)
+);
+
+CREATE TABLE faculty
+(
+  id         SERIAL PRIMARY KEY,
+  name_en    VARCHAR,
+  name_ua    VARCHAR,
+  vacs       INTEGER,
+  vacs_contr INTEGER
+);
+
+CREATE TABLE faculty_subject
+(
+  faculty_id INTEGER,
+  subject_id INTEGER,
+  FOREIGN KEY (faculty_id) REFERENCES faculty (id) ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subject (id) ON DELETE CASCADE
+);
+
+CREATE TABLE student_mark
+(
+  id         SERIAL PRIMARY KEY,
+  user_id    INTEGER,
+  subject_id INTEGER,
+  mark       INTEGER,
+  FOREIGN KEY (user_id) REFERENCES user_db (id) ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subject (id) ON DELETE CASCADE
+);
+
+CREATE TABLE student_faculty
+(
+  student_id INTEGER,
+  faculty_id INTEGER,
+  FOREIGN KEY (student_id) REFERENCES user_db (id) ON DELETE CASCADE,
+  FOREIGN KEY (faculty_id) REFERENCES faculty (id) ON DELETE CASCADE
+)

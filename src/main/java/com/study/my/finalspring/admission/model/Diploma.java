@@ -8,7 +8,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Builder
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @AllArgsConstructor
