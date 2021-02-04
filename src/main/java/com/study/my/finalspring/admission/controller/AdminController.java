@@ -42,7 +42,6 @@ public class AdminController {
     @PostMapping("/student/{id}/changeactive")
     public String blockStudent(@PathVariable int id, @RequestParam boolean enabled, Model model) {
         User user = userService.setEnabled(id, enabled);
-        //       model.addAttribute("student", user);
         return "redirect:/admin/students/view/" + user.getEmail();
     }
 }

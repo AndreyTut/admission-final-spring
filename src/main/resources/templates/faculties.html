@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+              th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+        <script src="../static/js/jquery-2.1.4.min.js"
+                th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+        <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+    </head>
+<body>
+<div class="container" th:replace="fragments/header :: header">
+    <p>header</p>
+</div>
+<div style="margin: 20px">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <form th:action="@{/admin/faculty/all}" method="get">
+                <input type="hidden" name="loc" th:value="__${#locale.language}__">
+                <div class="form-group">
+                    <label for="sortparam" th:text="#{faculty.sortby}"/>
+                    <select name="sortparam" id="sortparam">
+                        <option value="name" th:text="#{faculty.sort.name}">name</option>
+                        <option value="budg" th:text="#{faculty.sort.budget}">name</option>
+                        <option value="contr" th:text="#{faculty.sort.contr}">name</option>
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-info" th:text="#{faculty.sort}"/>
+            </form>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+
+            <th th:text="#{table.faculty.header.name}">
+                Name
+            </th>
+            <th th:text="#{table.faculty.header.vacanciesnum}">Budget vacancies</th>
+            <th th:text="#{table.faculty.header.vacanciescontrnum}">Contract places</th>
+            <th th:text="#{table.faculty.header.edit}">Edit</th>
+            <th th:text="#{table.faculty.header.delete}">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="faculty : ${faculties}">
+            <td th:if="__${#locale.language}__=='ua'" th:text="${faculty.nameUa}">data</td>
+            <td th:if="__${#locale.language}__=='en'" th:text="${faculty.nameEn}">data</td>
+            <td th:text="${faculty.vacancyBudge}">data</td>
+            <td th:text="${faculty.vacancyContr}">data</td>
+            <td><a href="#" th:href="@{'/admin/faculty/'+${faculty.id}+'/edit'}">
+                <img src="../static/images/pencil.png" alt="update"
+                     th:src="@{/images/pencil.png}"/> </a></td>
+            <td><a href="#" th:href="@{'/admin/faculty/'+${faculty.id}+'/delete'}">
+                <img src="../static/images/delete.png" alt="delete"
+                     th:src="@{/images/delete.png}">
+            </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{/admin/faculty/add}" th:text="#{faculty.add}">
+            Add new faculty
+            <img src="../static/images/add.png"
+                 th:src="@{/images/add.png}" alt="add"/>
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

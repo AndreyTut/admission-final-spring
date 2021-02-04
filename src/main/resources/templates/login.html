@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" th:text="#{inputform.email}">Username:</label>
-                        <input type="text" class="form-control" name="email" id="email"/>
+                        <input type="text" class="form-control" name="email" id="email" list="useremail"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label" th:text="#{inputform.password}">Password:</label>
@@ -39,6 +39,10 @@
         </div>
     </div>
 </div>
+<datalist id="useremail">
+    <option>admin@gmail.com</option>
+    <option>user@ukr.net</option>
+</datalist>
 </body>
 
 </html>
