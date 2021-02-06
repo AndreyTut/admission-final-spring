@@ -21,7 +21,7 @@ public class Faculty {
     private Integer id;
     @Pattern(regexp = "[A-Za-z\\s]+")
     private String nameEn;
-    @Pattern(regexp = "[А-Яа-я\\s]+")
+    @Pattern(regexp = "[А-Яа-яіїщ'єІЇЄЩ\\s]+")
     private String nameUa;
     @Min(1)
     @Max(1000)

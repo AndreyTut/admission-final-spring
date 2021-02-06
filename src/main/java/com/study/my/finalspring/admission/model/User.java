@@ -1,6 +1,7 @@
 package com.study.my.finalspring.admission.model;
 
 import lombok.*;
+import net.bytebuddy.build.ToStringPlugin;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -62,7 +63,9 @@ public class User {
     private boolean isEnabled = true;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<StudentMark> marks;
+
     @ManyToMany
     @JoinTable(name = "student_faculty", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private List<Faculty> faculties;

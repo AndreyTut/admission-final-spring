@@ -3,7 +3,6 @@ package com.study.my.finalspring.admission.controller;
 import com.study.my.finalspring.admission.dto.UserTo;
 import com.study.my.finalspring.admission.model.Diploma;
 import com.study.my.finalspring.admission.service.DiplomaService;
-import com.study.my.finalspring.admission.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +18,8 @@ import java.security.Principal;
 public class DiplomaController {
 
     private DiplomaService diplomaService;
-    private UserService userService;
 
-    public DiplomaController(DiplomaService diplomaService, UserService userService) {
+    public DiplomaController(DiplomaService diplomaService) {
         this.diplomaService = diplomaService;
     }
 

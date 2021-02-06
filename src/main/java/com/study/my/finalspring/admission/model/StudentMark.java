@@ -23,4 +23,8 @@ public class StudentMark {
     @Min(0)
     @Max(200)
     private Integer mark;
+
+    public StudentMark(Subject subject) {
+        this.subject = subject;
+    }
 }

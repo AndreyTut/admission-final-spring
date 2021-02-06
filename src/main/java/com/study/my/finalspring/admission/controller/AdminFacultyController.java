@@ -2,7 +2,6 @@ package com.study.my.finalspring.admission.controller;
 
 import com.study.my.finalspring.admission.model.Faculty;
 import com.study.my.finalspring.admission.model.Subject;
-import com.study.my.finalspring.admission.repository.SubjectRepository;
 import com.study.my.finalspring.admission.service.FacultyService;
 import com.study.my.finalspring.admission.util.FacultyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +17,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/faculty")
 @Slf4j
-public class FacultyController {
+public class AdminFacultyController {
 
     private FacultyService facultyService;
 
 
-    public FacultyController(FacultyService facultyService) {
+    public AdminFacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
 

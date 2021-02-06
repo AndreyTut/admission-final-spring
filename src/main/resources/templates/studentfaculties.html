@@ -19,7 +19,7 @@
 <div style="margin: 20px">
     <div class="row">
         <div class="col-md-2 col-md-offset-10">
-            <form th:action="@{/admin/faculty/all}" method="get">
+            <form th:action="@{/user/faculty/all}" method="get">
                 <input type="hidden" name="loc" th:value="__${#locale.language}__">
                 <div class="form-group">
                     <label for="sortparam" th:text="#{faculty.sortby}"/>
@@ -43,8 +43,7 @@
             </th>
             <th th:text="#{table.faculty.header.vacanciesnum}">Budget vacancies</th>
             <th th:text="#{table.faculty.header.vacanciescontrnum}">Contract places</th>
-            <th th:text="#{table.faculty.header.edit}">Edit</th>
-            <th th:text="#{table.faculty.header.delete}">Delete</th>
+            <th th:text="#{table.faculty.submit}">Submit</th>
         </tr>
         </thead>
         <tbody>
@@ -53,23 +52,12 @@
             <td th:if="__${#locale.language}__=='en'" th:text="${faculty.nameEn}">data</td>
             <td th:text="${faculty.vacancyBudge}">data</td>
             <td th:text="${faculty.vacancyContr}">data</td>
-            <td><a href="#" th:href="@{'/admin/faculty/'+${faculty.id}+'/edit'}">
-                <img src="../static/images/pencil.png" alt="update"
-                     th:src="@{/images/pencil.png}"/> </a></td>
-            <td><a href="#" th:href="@{'/admin/faculty/'+${faculty.id}+'/delete'}">
-                <img src="../static/images/delete.png" alt="delete"
-                     th:src="@{/images/delete.png}">
-            </a></td>
+            <td><a href="#" th:href="@{'/user/faculty/'+${faculty.id}+'/submit'}">
+                <img src="../static/images/add.png" alt="update"
+                     th:src="@{/images/add.png}"/> </a></td>
         </tr>
         </tbody>
     </table>
-    <div>
-        <a th:href="@{/admin/faculty/add}">
-            <span th:text="#{faculty.add}"></span>
-            <img src="../static/images/add.png"
-                 th:src="@{/images/add.png}" alt="add"/>
-        </a>
-    </div>
 
 </div>
 </body>

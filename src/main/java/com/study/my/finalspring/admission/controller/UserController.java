@@ -41,11 +41,13 @@ public class UserController {
     public String update(@Valid @ModelAttribute("student") UserTo userTo,
                          BindingResult studentBindingResult,
                          Model model) {
-        Diploma diploma = userService.getByEmail(userTo.getEmail()).getDiploma();
+        User user = userService.getByEmail(userTo.getEmail());
+        Diploma diploma = user.getDiploma();
         diploma = diploma != null ? diploma : new Diploma();
         if (studentBindingResult.hasErrors()) {
             model.addAttribute("student", userTo);
             model.addAttribute("diploma", diploma);
+            model.addAttribute("faculties", user.getFaculties());
             return "editstudent";
         }
         log.info("updating user with id = {}", userTo.getId());

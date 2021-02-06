@@ -1,8 +1,12 @@
 package com.study.my.finalspring.admission.service;
 
 import com.study.my.finalspring.admission.dto.UserTo;
+import com.study.my.finalspring.admission.model.Faculty;
 import com.study.my.finalspring.admission.model.Role;
+import com.study.my.finalspring.admission.model.StudentMark;
 import com.study.my.finalspring.admission.model.User;
+import com.study.my.finalspring.admission.repository.FacultyRepository;
+import com.study.my.finalspring.admission.repository.StudentMarkRepository;
 import com.study.my.finalspring.admission.repository.UserRepository;
 import com.study.my.finalspring.admission.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +33,15 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private UserRepository repository;
+    private StudentMarkRepository studentMarkRepository;
+    private FacultyRepository facultyRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository repository, @Lazy BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository, StudentMarkRepository studentMarkRepository, FacultyRepository facultyRepository, @Lazy BCryptPasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.studentMarkRepository = studentMarkRepository;
+        this.facultyRepository = facultyRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -94,6 +102,28 @@ public class UserService implements UserDetailsService {
         repository.save(user);
         return user;
     }
+
+    //TODO write own exception classes and use them instead of runtime exceptions
+    public boolean saveMarks(List<StudentMark> marks, String email) {
+        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        marks.forEach(studentMark -> studentMark.setUser(user));
+        studentMarkRepository.saveAll(marks);
+        return true;
+    }
+
+    //TODO write own exception classes and use them instead of runtime exceptions
+    public boolean addFaculty(int id, String email) {
+        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        Faculty faculty = facultyRepository.findById(id).orElseThrow(RuntimeException::new);
+        List<Faculty> faculties = user.getFaculties() == null ? new ArrayList<>() : user.getFaculties();
+        if (!faculties.contains(faculty)) {
+            faculties.add(faculty);
+        }
+        user.setFaculties(faculties);
+        repository.save(user);
+        return true;
+    }
+
 
     //TODO write own exception classes and use them instead of runtime exceptions
     @Transactional

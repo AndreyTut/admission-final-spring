@@ -27,6 +27,7 @@ public class UserUtil {
         user.setRoles(old.getRoles());
         user.setDiploma(old.getDiploma());
         user.setDiplomImage(old.getDiplomImage());
+        user.setFaculties(old.getFaculties());
         return user;
     }
 }

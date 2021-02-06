@@ -32,7 +32,8 @@
                     <div class="form-group"
                          th:class="${#fields.hasErrors('email')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.email}">Email:</label>
-                        <input type="text" class="form-control" name="email" id="email" th:value="${user.email}"/>
+                        <input type="text" class="form-control" name="email" id="email" th:value="${user.email}"
+                               list="emails"/>
                         <span class="help-block" th:if="${#fields.hasErrors('email')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
@@ -57,7 +58,7 @@
                          th:class="${#fields.hasErrors('firstName')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.firstname}">First name:</label>
                         <input type="text" class="form-control" name="firstName" id="firstName"
-                               th:value="${user.firstName}"/>
+                               list="firstnames" th:value="${user.firstName}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"/>
@@ -70,7 +71,7 @@
                          th:class="${#fields.hasErrors('patronymic')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.patronymic}">Patronymic:</label>
                         <input type="text" class="form-control" name="patronymic" id="patronymic"
-                               th:value="${user.patronymic}"/>
+                               list="patronymics" th:value="${user.patronymic}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('patronymic')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('patronymic')}" th:text="${err}"/>
@@ -83,7 +84,7 @@
                          th:class="${#fields.hasErrors('lastName')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.lastname}">Last name:</label>
                         <input type="text" class="form-control" name="lastName" id="lastName"
-                               th:value="${user.lastName}"/>
+                               list="lastnames" th:value="${user.lastName}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"/>
@@ -95,7 +96,8 @@
 
                     <div class="form-group" th:class="${#fields.hasErrors('city')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.city}">City:</label>
-                        <input type="text" class="form-control" name="city" id="city" th:value="${user.city}"/>
+                        <input type="text" list="cities" class="form-control" name="city" id="city"
+                               th:value="${user.city}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('city')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('city')}" th:text="${err}"/>
@@ -107,7 +109,8 @@
                     <div class="form-group"
                          th:class="${#fields.hasErrors('region')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.region}">Region:</label>
-                        <input type="text" class="form-control" name="region" id="region" th:value="${user.region}"/>
+                        <input type="text" list="regs" class="form-control" name="region" id="region"
+                               th:value="${user.region}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('region')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('region')}" th:text="${err}"/>
@@ -122,7 +125,7 @@
                          th:class="${#fields.hasErrors('schoolName')}?'form-group has-error':'form-group'">
                         <label class="control-label" th:text="#{inputform.schoolname}">Region:</label>
                         <input type="text" class="form-control" name="schoolName" id="schoolName"
-                               th:value="${user.schoolName}"/>
+                               list="schools" th:value="${user.schoolName}"/>
                         <span class="help-block" th:if="${#fields.hasErrors('region')}">
                        <ul>
                            <li th:each="err : ${#fields.errors('schoolName')}" th:text="${err}"/>
@@ -141,6 +144,55 @@
         </div>
     </div>
 </div>
+<datalist id="emails">
+    <option>user@user.net</option>
+    <option>user1@user.net</option>
+    <option>user2@user.net</option>
+    <option>user3@user.net</option>
+</datalist>
+
+<datalist id="firstnames">
+    <option>Іван</option>
+    <option>Григорій</option>
+    <option>Олександр</option>
+    <option>Олексій</option>
+</datalist>
+
+<datalist id="lastnames">
+    <option>Деркач</option>
+    <option>Завгородній</option>
+    <option>Хмара</option>
+    <option>Горліс</option>
+</datalist>
+
+<datalist id="patronymics">
+    <option>Миколайович</option>
+    <option>Васильовоч</option>
+    <option>Семенович</option>
+    <option>Вікторович</option>
+</datalist>
+
+<datalist id="cities">
+    <option>Київ</option>
+    <option>Вінниця</option>
+    <option>Черкаси</option>
+    <option>Львів</option>
+</datalist>
+
+<datalist id="regs">
+    <option>Київська</option>
+    <option>Вінницька</option>
+    <option>Черкаська</option>
+    <option>Львівська</option>
+</datalist>
+
+<datalist id="schools">
+    <option>Школа №12</option>
+    <option>Гімназія №1</option>
+    <option>Технікум радіоелектроніки</option>
+    <option>Колледж №14</option>
+</datalist>
+
 
 </body>
 </html>
