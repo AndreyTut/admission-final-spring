@@ -5,11 +5,15 @@ FROM user_db;
 
 INSERT INTO user_db (email, password, enabled)
 VALUES ('user@ukr.net', '$2y$12$OiNQAoK940Y2OfWfA06mWexCgcrToKQgG9RzUX1qjDjXUVs5hXQAG', true),
-       ('admin@gmail.com', '$2y$12$OiNQAoK940Y2OfWfA06mWexCgcrToKQgG9RzUX1qjDjXUVs5hXQAG', true);
+       ('admin@gmail.com', '$2y$12$OiNQAoK940Y2OfWfA06mWexCgcrToKQgG9RzUX1qjDjXUVs5hXQAG', true),
+       ('user@user.net', '1', true),
+       ('admin@user.net', '1', true);
 
 INSERT INTO user_role (role, user_id)
 VALUES ('ROLE_USER', 1),
-       ('ROLE_ADMIN', 2);
+       ('ROLE_ADMIN', 2),
+       ('ROLE_USER', 3),
+       ('ROLE_ADMIN', 4);
 
 INSERT INTO subject (name_en, name_ua)
 VALUES ('Mathematics', 'Математика'),

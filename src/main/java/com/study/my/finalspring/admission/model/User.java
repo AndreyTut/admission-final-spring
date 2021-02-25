@@ -1,7 +1,6 @@
 package com.study.my.finalspring.admission.model;
 
 import lombok.*;
-import net.bytebuddy.build.ToStringPlugin;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -57,6 +56,9 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Diploma diploma;
+
+    @ManyToOne
+    private Faculty faculty;
 
     @Column(name = "enabled")
     @Builder.Default

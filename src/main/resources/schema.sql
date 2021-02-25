@@ -1,7 +1,3 @@
---ALTER TABLE if exists user_db
---  DROP CONSTRAINT IF EXISTS diploma_fk;
-
-
 DROP TABLE IF EXISTS diploma CASCADE;
 DROP TABLE IF EXISTS user_role CASCADE;
 DROP TABLE IF EXISTS user_db CASCADE;
@@ -11,6 +7,15 @@ DROP TABLE IF EXISTS faculty_subject CASCADE;
 DROP TABLE IF EXISTS student_mark CASCADE;
 DROP TABLE IF EXISTS student_faculty CASCADE;
 
+CREATE TABLE faculty
+(
+  id         SERIAL PRIMARY KEY,
+  name_en    VARCHAR,
+  name_ua    VARCHAR,
+  vacs       INTEGER,
+  vacs_contr INTEGER,
+  finalized  BOOLEAN DEFAULT FALSE
+);
 
 
 CREATE TABLE user_db
@@ -26,7 +31,10 @@ CREATE TABLE user_db
   school_name  VARCHAR,
   diplom_image BYTEA,
   enabled      BOOL DEFAULT TRUE NOT NULL,
-  diploma_id   INTEGER
+  diploma_id   INTEGER,
+  faculty_id   INTEGER,
+  status       INTEGER,
+  FOREIGN KEY (faculty_id) REFERENCES faculty (id)
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON user_db (email);
 
@@ -64,14 +72,6 @@ CREATE TABLE subject
   CONSTRAINT name_idx UNIQUE (name_en, name_ua)
 );
 
-CREATE TABLE faculty
-(
-  id         SERIAL PRIMARY KEY,
-  name_en    VARCHAR,
-  name_ua    VARCHAR,
-  vacs       INTEGER,
-  vacs_contr INTEGER
-);
 
 CREATE TABLE faculty_subject
 (
