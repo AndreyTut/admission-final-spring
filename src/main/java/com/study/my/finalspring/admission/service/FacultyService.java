@@ -8,11 +8,17 @@ import com.study.my.finalspring.admission.model.User;
 import com.study.my.finalspring.admission.repository.FacultyRepository;
 import com.study.my.finalspring.admission.repository.SubjectRepository;
 import com.study.my.finalspring.admission.repository.UserRepository;
+import com.study.my.finalspring.admission.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static com.study.my.finalspring.admission.util.UserUtil.*;
 
 @Service
 @Slf4j
@@ -86,5 +92,33 @@ public class FacultyService {
             }
         }
         return facultyMarks;
+    }
+
+    @Transactional
+    public boolean finalyzeReport(int facultyId) {
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(RuntimeException::new);
+        List<User> students = faculty.getStudents();
+        students = students.stream()
+                .filter(User::isEnabled)
+                .collect(Collectors.toList());
+
+        students.forEach(s -> setUserRatingForFaculty(s, faculty));
+        students.sort((s1, s2) -> s2.getRating() - s1.getRating());
+
+        AtomicInteger counter = new AtomicInteger(0);
+        students.forEach(student -> {
+            int num = counter.incrementAndGet();
+            if (num <= faculty.getVacancyBudge()) {
+                student.setStatus(1);
+            }
+            if (num > faculty.getVacancyBudge() && num <= faculty.getVacancyContr() + faculty.getVacancyBudge()) {
+                student.setStatus(2);
+            }
+            if (num > faculty.getVacancyContr() + faculty.getVacancyBudge()) {
+                student.setStatus(3);
+            }
+        });
+        faculty.setFinalized(true);
+        return true;
     }
 }

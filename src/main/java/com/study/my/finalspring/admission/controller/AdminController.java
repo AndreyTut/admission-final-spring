@@ -44,4 +44,12 @@ public class AdminController {
         User user = userService.setEnabled(id, enabled);
         return "redirect:/admin/students/view/" + user.getEmail();
     }
+
+    @GetMapping("/student/addtoreport/{email}/{facultyId}")
+    public String addStudentToReport(@PathVariable String email, @PathVariable int facultyId, Model model) {
+        User user = userService.addToReport(email, facultyId);
+        log.info("faculty user list: " + user.getFaculty().getStudents());
+        model.addAttribute("student", user);
+        return "viewstudent";
+    }
 }

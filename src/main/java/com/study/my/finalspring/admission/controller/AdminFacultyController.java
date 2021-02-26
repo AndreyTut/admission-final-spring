@@ -78,4 +78,10 @@ public class AdminFacultyController {
         log.info("saving faculty: {}", faculty);
         return "redirect:/admin/faculty/all";
     }
+
+    @GetMapping("/{facultyId}/finalize")
+    public String finalizeReport(@PathVariable int facultyId, Model model) {
+        facultyService.finalyzeReport(facultyId);
+        return "redirect:/admin/faculty/all";
+    }
 }

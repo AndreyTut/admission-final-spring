@@ -72,7 +72,13 @@ public class User {
     @JoinTable(name = "student_faculty", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private List<Faculty> faculties;
 
+    @ToString.Exclude
     private byte[] diplomImage;
+
+    private Integer status;
+
+    @Transient
+    private Integer rating;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

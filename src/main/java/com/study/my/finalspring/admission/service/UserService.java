@@ -140,6 +140,14 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    @Transactional
+    public User addToReport(String email, int facultyId) {
+        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        user.setFaculty(facultyRepository.findById(facultyId).orElseThrow(RuntimeException::new));
+        repository.save(user);
+        return user;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -184,4 +192,5 @@ public class UserService implements UserDetailsService {
             }
         };
     }
+
 }
