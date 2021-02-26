@@ -17,6 +17,34 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 20px">
+
+    <div th:if="${student.status==1}" class="col-md-10 col-md-offset-1 alert alert-success">
+        <span th:text="#{student.accepted.budget}"></span>
+        <span th:if="__${#locale.language}__=='ua'"
+              th:text="${student.faculty.nameUa}">Faculty name</span>
+        <span th:if="__${#locale.language}__=='en'"
+              th:text="${student.faculty.nameEn}">Faculty name</span>
+    </div>
+
+    <div th:if="${student.status==2}" class="col-md-10 col-md-offset-1 alert alert-success">
+        <span th:text="#{student.accepted.contract}"></span>
+        <span th:if="__${#locale.language}__=='ua'"
+              th:text="${student.faculty.nameUa}">Faculty name</span>
+        <span th:if="__${#locale.language}__=='en'"
+              th:text="${student.faculty.nameEn}">Faculty name</span>
+    </div>
+
+    <div th:if="${student.status==3}" class="col-md-10 col-md-offset-1 alert alert-danger">
+        <span th:text="#{student.failed}"></span>
+        <span th:if="__${#locale.language}__=='ua'"
+              th:text="${student.faculty.nameUa}">Faculty name</span>
+        <span th:if="__${#locale.language}__=='en'"
+              th:text="${student.faculty.nameEn}">Faculty name</span>
+    </div>
+
+
+
+
     <div class="row">
         <div class="col-sm-1 col-md-offset-10">
             <form action="/admin/student/id/" th:action="@{'/admin/student/'+${student.id}+'/changeactive'}"
@@ -113,6 +141,32 @@
             <img src="" class="img-fluid" th:src="@{'/diplomaimage/'+${student.email}}"
                  alt="Student didn't load diploma scan"/>
         </div>
+
+        <div class="col-md-2">
+            <div th:if="${student.faculty==null}">
+                <h4 th:text="#{student.faculties}"></h4>
+                <ul>
+                    <li th:each="faculty: ${student.faculties}">
+                                <span th:if="__${#locale.language}__=='ua'"
+                                      th:text="${faculty.nameUa}">Faculty name</span>
+                        <span th:if="__${#locale.language}__=='en'"
+                              th:text="${faculty.nameEn}">Faculty name</span>
+                        <a th:href="@{'/admin/student/addtoreport/'+${student.email}+'/'+${faculty.id}}">
+                            <span th:text="#{student.addtoreport}"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div th:unless="${student.faculty==null}">
+                <p>
+                    <span th:text="#{student.inreport}"></span>
+                    <span th:if="__${#locale.language}__=='ua'" th:text="${student.faculty.nameUa}"></span>
+                    <span th:if="__${#locale.language}__=='en'" th:text="${student.faculty.nameEn}"></span>
+                </p>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

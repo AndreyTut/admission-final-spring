@@ -45,6 +45,7 @@
             <th th:text="#{table.faculty.header.vacanciescontrnum}">Contract places</th>
             <th th:text="#{table.faculty.header.edit}">Edit</th>
             <th th:text="#{table.faculty.header.delete}">Delete</th>
+            <th th:text="#{table.faculty.header.finalize}"></th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +61,15 @@
                 <img src="../static/images/delete.png" alt="delete"
                      th:src="@{/images/delete.png}">
             </a></td>
+
+            <td th:if="${!faculty.finalized}"><a href="#" th:href="@{'/admin/faculty/'+${faculty.id}+'/finalize'}">
+                <img src="../static/images/finalize.png" alt="finalize faculty report"
+                     th:src="@{/images/finalize.png}">
+            </a>
+            </td>
+            <td th:if="${faculty.finalized}">
+                <span>FINALIZED</span>
+            </td>
         </tr>
         </tbody>
     </table>
