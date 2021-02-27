@@ -35,4 +35,5 @@ public class UserTo {
     private String region;
     @NotBlank
     private String schoolName;
+    private Integer status;
 }

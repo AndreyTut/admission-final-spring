@@ -13,23 +13,24 @@
 </head>
 <body>
 <div class="container-fluid">
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;" th:fragment="header">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;" th:fragment="userheader">
         <div class="row">
             <div class="col-md-1 col-md-offset-1 navbar-brand">
-                <a href="#" th:href="@{/login}" th:text="#{header.login}">Navbar</a>
+                <a href="#" th:href="@{/user/edit}" th:text="#{header.Profile}">Profile</a>
             </div>
 
             <div class="col-md-1 col-md-offset-1 navbar-brand">
-                <a href="#" th:href="@{/registration}" th:text="#{header.registration}">Navbar</a>
+                <a href="#" th:href="@{/logout}" th:text="#{header.logout}">Logout</a>
             </div>
+
             <div class="col-md-1 col-md-offset-5 navbar-brand">
                 <a href="?lang=en">English</a>
             </div>
-            <div class="col-md-1 navbar-brand">
+
+            <div class="col-md-1  navbar-brand">
                 <a href="?lang=ua">Українська</a>
             </div>
         </div>
-    </nav>
     </nav>
 </div>
 </body>

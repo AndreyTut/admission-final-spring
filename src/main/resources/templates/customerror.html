@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+          th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+
+    <script src="../static/js/jquery-2.1.4.min.js"
+            th:src="@{/js/jquery-2.1.4.min.js}"></script>
+
+    <link th:href="@{/css/custom.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="col-md-4 alert col-md-offset-4  alert-danger">
+        <h3>Error happend</h3>
+        <label for="url">URL:</label>
+        <p th:if="${errorinfo.url!=null}" th:text="${errorinfo.url}" id="url">Error</p>
+        <label for="ex">Exception:</label>
+        <p th:text="${errorinfo.ex}" id="ex">Error</p>
+        <label for="detail">Detail:</label>
+        <p th:text="${errorinfo.detail}" id="detail">Error</p>
+    </div>
+</div>
+</body>
+</html>

@@ -52,8 +52,6 @@ public class UserController {
         }
         log.info("updating user with id = {}", userTo.getId());
         userService.update(userTo);
-        model.addAttribute("student", userTo);
-        model.addAttribute("diploma", diploma);
         return "redirect:/user/edit";
     }
 }

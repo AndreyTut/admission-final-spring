@@ -9,6 +9,7 @@ import com.study.my.finalspring.admission.repository.FacultyRepository;
 import com.study.my.finalspring.admission.repository.StudentMarkRepository;
 import com.study.my.finalspring.admission.repository.UserRepository;
 import com.study.my.finalspring.admission.util.UserUtil;
+import com.study.my.finalspring.admission.util.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -58,10 +59,9 @@ public class UserService implements UserDetailsService {
     }
 
     public User getByEmail(String email) {
-        return repository.findByEmail(email).orElse(null);
+        return repository.findByEmail(email).orElseThrow(() -> new NotFoundException("user with email: " + email + " not found"));
     }
 
-    //TODO change this method return type to void, if user exists, throw exception
     public boolean create(User user) {
         if (user.getId() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -72,7 +72,6 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    //TODO change this method return type to void, if user not exist, throw exception
     public boolean update(User user) {
         if (user.getId() == null) {
             return false;
@@ -86,34 +85,30 @@ public class UserService implements UserDetailsService {
         return create(user);
     }
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     @Transactional
     public boolean update(UserTo userTo) {
-        User old = repository.findById(userTo.getId()).orElseThrow(RuntimeException::new);
+        User old = repository.findById(userTo.getId()).orElseThrow(() -> new NotFoundException("User you try to update doesn't exist"));
         return repository.save(UserUtil.prepareToUpdate(userTo, old)) != null;
     }
 
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     @Transactional
     public User setEnabled(int id, boolean enabled) {
-        User user = repository.findById(id).orElseThrow(RuntimeException::new);
+        User user = repository.findById(id).orElseThrow(() -> new NotFoundException("User with id=" + id + "not found"));
         user.setEnabled(enabled);
         repository.save(user);
         return user;
     }
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     public boolean saveMarks(List<StudentMark> marks, String email) {
-        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        User user = repository.findByEmail(email).orElseThrow(() -> new NotFoundException("user with email: " + email + " not found"));
         marks.forEach(studentMark -> studentMark.setUser(user));
         studentMarkRepository.saveAll(marks);
         return true;
     }
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     public boolean addFaculty(int id, String email) {
-        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        User user = repository.findByEmail(email).orElseThrow(() -> new NotFoundException("user with email: " + email + " not found"));
         Faculty faculty = facultyRepository.findById(id).orElseThrow(RuntimeException::new);
         List<Faculty> faculties = user.getFaculties() == null ? new ArrayList<>() : user.getFaculties();
         if (!faculties.contains(faculty)) {
@@ -125,7 +120,6 @@ public class UserService implements UserDetailsService {
     }
 
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     @Transactional
     public User saveDiplomaImage(MultipartFile image, String email) {
         byte[] imageBytes;
@@ -135,7 +129,7 @@ public class UserService implements UserDetailsService {
             log.error("Error occurred while converting file into bytes");
             throw new RuntimeException("Error saving image to database");
         }
-        User user = repository.findByEmail(email).orElseThrow(RuntimeException::new);
+        User user = repository.findByEmail(email).orElseThrow(() -> new NotFoundException("user with email: " + email + " not found"));
         user.setDiplomImage(imageBytes);
         return user;
     }

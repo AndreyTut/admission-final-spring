@@ -71,7 +71,7 @@ public class AdminFacultyController {
             model.addAttribute("subjects", facultyService.getSubjects());
             return "addeditfaculty";
         }
-        log.info("saving faculty before seting subjects: {}", faculty);
+        log.info("saving faculty before setting subjects: {}", faculty);
         faculty.setSubjects(facultyService.getExistingSubjects(faculty));
         log.info("saving faculty before service: {}", faculty);
         facultyService.save(faculty);

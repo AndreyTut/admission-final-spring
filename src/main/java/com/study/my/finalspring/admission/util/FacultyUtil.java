@@ -1,6 +1,7 @@
 package com.study.my.finalspring.admission.util;
 
 import com.study.my.finalspring.admission.model.Faculty;
+import com.study.my.finalspring.admission.util.exceptions.WrongMethodParameterException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Comparator;
@@ -9,8 +10,6 @@ import java.util.Comparator;
 public class FacultyUtil {
 
 
-
-    //TODO change exception type on my own
     public static Comparator<Faculty> getComparator(String sortBy, String locale) {
         if (sortBy == null) {
             return Comparator.comparing(Faculty::getNameEn);
@@ -25,6 +24,6 @@ public class FacultyUtil {
             case "contr":
                 return Comparator.comparing(Faculty::getVacancyContr);
         }
-        throw new RuntimeException("Illegal sorting parameters");
+        throw new WrongMethodParameterException("Wrong sorting parameters: " + sortBy);
     }
 }

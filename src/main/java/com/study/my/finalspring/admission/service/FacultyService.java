@@ -8,7 +8,7 @@ import com.study.my.finalspring.admission.model.User;
 import com.study.my.finalspring.admission.repository.FacultyRepository;
 import com.study.my.finalspring.admission.repository.SubjectRepository;
 import com.study.my.finalspring.admission.repository.UserRepository;
-import com.study.my.finalspring.admission.util.UserUtil;
+import com.study.my.finalspring.admission.util.exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static com.study.my.finalspring.admission.util.UserUtil.*;
+import static com.study.my.finalspring.admission.util.UserUtil.setUserRatingForFaculty;
 
 @Service
 @Slf4j
@@ -46,7 +46,6 @@ public class FacultyService {
         return subjectRepository.findAll();
     }
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     public Faculty getById(int id) {
         return facultyRepository.findById(id).orElseThrow(RuntimeException::new);
     }
@@ -57,7 +56,7 @@ public class FacultyService {
                 .stream()
                 .map(subject -> subject.getNameEn() != null ? subject.getNameEn() : subject.getNameUa())
                 .map(s -> subjectRepository.findByNameEnOrNameUa(s, s))
-                .forEach(opt -> result.add(opt.orElseThrow(RuntimeException::new)));
+                .forEach(opt -> result.add(opt.orElseThrow(() -> new NotFoundException("Subject doesn't exist"))));
         return result;
     }
 
@@ -66,12 +65,11 @@ public class FacultyService {
         return facultyRepository.save(faculty) != null;
     }
 
-    //TODO write own exception classes and use them instead of runtime exceptions
     public FacultyMarksTo getFacultyMarks(String email, int facultyId) {
         FacultyMarksTo facultyMarks = new FacultyMarksTo();
-        User user = userRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("user with email: " + email + " not found"));
         List<StudentMark> studentMarks = user.getMarks();
-        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(RuntimeException::new);
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(() -> new NotFoundException("Faculty with id " + facultyId + "not found"));
 
         if (studentMarks == null) {
             faculty.getSubjects().forEach(subject -> facultyMarks.getMarks().add(new StudentMark(subject)));
@@ -96,7 +94,7 @@ public class FacultyService {
 
     @Transactional
     public boolean finalyzeReport(int facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(RuntimeException::new);
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(() -> new NotFoundException("Faculty with id " + facultyId + "not found"));
         List<User> students = faculty.getStudents();
         students = students.stream()
                 .filter(User::isEnabled)
